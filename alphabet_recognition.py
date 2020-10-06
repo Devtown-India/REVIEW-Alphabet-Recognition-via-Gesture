@@ -71,7 +71,7 @@ while True:
     blueMask = cv2.dilate(blueMask, kernel, iterations=1)
 
     # Find contours (bottle cap in my case) in the image
-    (cnts, _) = cv2.findContours(blueMask.copy(), cv2.RETR_EXTERNAL,
+    (_,cnts, _) = cv2.findContours(blueMask.copy(), cv2.RETR_EXTERNAL,
     	cv2.CHAIN_APPROX_SIMPLE)
     center = None
 
@@ -96,7 +96,7 @@ while True:
             blur1 = cv2.medianBlur(blackboard_gray, 15)
             blur1 = cv2.GaussianBlur(blur1, (5, 5), 0)
             thresh1 = cv2.threshold(blur1, 0, 255, cv2.THRESH_BINARY + cv2.THRESH_OTSU)[1]
-            blackboard_cnts = cv2.findContours(thresh1.copy(), cv2.RETR_TREE, cv2.CHAIN_APPROX_NONE)[0]
+            blackboard_cnts = cv2.findContours(thresh1.copy(), cv2.RETR_TREE, cv2.CHAIN_APPROX_NONE)[1]
             if len(blackboard_cnts) >= 1:
                 cnt = sorted(blackboard_cnts, key = cv2.contourArea, reverse = True)[0]
 
